@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070d25">
+<title>TECHASTRA JR’26 • WHATZIT? Buzzer</title>
+<style>
+:root{--gold:#FFD45A;--cream:#FFF4D6;--cyan:#00E5FF;--magenta:#FF4FD8;--navy:#101A3A;--bg:#070d25;--panel:#111a3d;--green:#63e6be;--danger:#ff5577}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,Poppins,system-ui,sans-serif;background:radial-gradient(circle at 20% 10%,rgba(0,229,255,.08),transparent 35%),radial-gradient(circle at 85% 90%,rgba(255,79,216,.08),transparent 35%),linear-gradient(135deg,#070d25,#0b1230);color:var(--cream)}
+body{display:flex;justify-content:center;padding:18px;min-height:100dvh}.shell{width:min(620px,100%);display:flex;flex-direction:column;justify-content:center;gap:14px}.brand{text-align:center;padding:8px}.brand h1{margin:0;color:var(--gold);font-size:clamp(30px,9vw,56px);font-weight:1000;letter-spacing:1px}.brand p{margin:5px 0;color:var(--cyan);font-weight:800;letter-spacing:1px}.card{background:rgba(17,26,61,.94);border:1px solid rgba(255,212,90,.18);border-radius:22px;padding:22px;box-shadow:0 18px 70px rgba(0,0,0,.28)}.step-title{font-size:12px;letter-spacing:2.5px;color:var(--cyan);font-weight:900;margin-bottom:9px}.field{margin-bottom:12px}.field label{display:block;font-size:12px;opacity:.7;margin-bottom:5px}.field input,.field select{width:100%;padding:13px;border:1px solid rgba(255,255,255,.14);border-radius:11px;background:#0b1330;color:var(--cream);font:inherit;outline:none}.field input:focus,.field select:focus{border-color:var(--cyan)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{width:100%;border:0;border-radius:13px;padding:14px 16px;font:inherit;font-weight:900;cursor:pointer;transition:.15s}.btn:active{transform:scale(.98)}.primary{background:linear-gradient(135deg,var(--gold),#ffb347);color:var(--navy)}.secondary{background:#18234c;color:var(--cream);border:1px solid rgba(255,255,255,.12)}.danger{background:#35172a;color:#ffb2c2;border:1px solid rgba(255,85,119,.3)}.muted{font-size:12px;opacity:.58;line-height:1.55}.error{background:#3a182a;color:#ffb2c2;border:1px solid rgba(255,85,119,.25);padding:10px;border-radius:10px;font-size:12px;margin-bottom:10px}.statusbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.dot{width:9px;height:9px;display:inline-block;border-radius:50%;background:var(--danger);margin-right:6px}.dot.on{background:var(--green);box-shadow:0 0 12px rgba(99,230,190,.5)}.teambox{padding:15px;border-radius:14px;background:#0c1432;border:1px solid rgba(255,255,255,.08);margin:12px 0}.teamname{text-align:center;font-size:25px;font-weight:1000;color:var(--gold)}.students{font-size:12px;opacity:.72;text-align:center;line-height:1.6;margin-top:5px}.waiting{text-align:center;padding:28px 10px}.waiting .big{font-size:clamp(32px,10vw,58px);font-weight:1000;color:var(--cyan)}.waiting .sub{opacity:.7}.buzzer-wrap{text-align:center;padding:8px 0 10px}.buzzer{width:min(360px,82vw);aspect-ratio:1;border-radius:50%;border:8px solid rgba(255,255,255,.08);background:radial-gradient(circle at 34% 28%,#ff6d8b,#b80f48 62%,#5f0930);color:white;font-size:clamp(30px,8vw,54px);line-height:1.05;font-weight:1000;letter-spacing:1px;box-shadow:0 0 0 10px rgba(255,79,216,.08),0 25px 80px rgba(255,79,216,.2);cursor:pointer;transition:.12s}.buzzer.live{animation:pulse 1.6s infinite}.buzzer:active{transform:scale(.96)}.buzzer:disabled{filter:grayscale(.65);opacity:.38;animation:none;cursor:not-allowed}.live-label{text-align:center;color:var(--magenta);font-weight:1000;letter-spacing:3px;margin-bottom:12px}@keyframes pulse{50%{box-shadow:0 0 0 18px rgba(255,79,216,.04),0 25px 100px rgba(255,79,216,.35)}}.toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#0d1737;border:1px solid rgba(255,212,90,.3);padding:11px 16px;border-radius:10px;font-size:13px;transition:.2s;z-index:20}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.hidden{display:none!important}.mini{font-size:11px;opacity:.55}.state{font-size:18px;font-weight:900;text-align:center;margin-top:9px}.timerline{height:8px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;margin-top:12px}.timerfill{height:100%;width:100%;background:linear-gradient(90deg,var(--cyan),var(--gold));transform-origin:left;transition:width .2s linear}
+@media(max-width:520px){.grid2{grid-template-columns:1fr}.card{padding:17px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="brand"><h1>WHATZIT?</h1><p>TECHASTRA JR’26 • LIVE BUZZER</p></div>
+
+  <section class="card" id="joinCard">
+    <div class="step-title">STEP 1 · JOIN ROOM</div>
+    <div id="joinError" class="error hidden"></div>
+    <div class="field"><label>ROOM ID</label><input id="roomId" maxlength="20" autocomplete="off" placeholder="e.g. WTZ26"></div>
+    <button class="btn primary" id="joinBtn">JOIN ROOM</button>
+    <p class="muted">Enter the room code provided by the organizer.</p>
+  </section>
+
+  <section class="card hidden" id="registerCard">
+    <div class="step-title">STEP 2 · TEAM REGISTRATION</div>
+    <div id="regError" class="error hidden"></div>
+    <div class="field"><label>TEAM NAME</label><input id="teamName" maxlength="120" autocomplete="off"></div>
+    <div class="grid2">
+      <div>
+        <div class="step-title">STUDENT 1</div>
+        <div class="field"><label>NAME</label><input id="s1n" maxlength="120"></div>
+        <div class="field"><label>SCHOOL NAME</label><input id="s1s" maxlength="120"></div>
+        <div class="field"><label>STANDARD</label><input id="s1std" maxlength="40" placeholder="8th"></div>
+      </div>
+      <div>
+        <div class="step-title">STUDENT 2</div>
+        <div class="field"><label>NAME</label><input id="s2n" maxlength="120"></div>
+        <div class="field"><label>SCHOOL NAME</label><input id="s2s" maxlength="120"></div>
+        <div class="field"><label>STANDARD</label><input id="s2std" maxlength="40" placeholder="9th"></div>
+      </div>
+    </div>
+    <button class="btn primary" id="registerBtn">JOIN BUZZER</button>
+  </section>
+
+  <section class="card hidden" id="playCard">
+    <div class="statusbar"><span><span class="dot" id="connDot"></span><span id="connText">CONNECTING</span></span><span class="mini" id="roomText"></span></div>
+    <div class="teambox"><div class="teamname" id="teamText"></div><div class="students" id="studentText"></div></div>
+    <div class="waiting" id="waitingState"><div class="big">READY</div><div class="sub" id="waitingSub">Wait for the organizer to start the question.</div></div>
+    <div id="liveState" class="hidden">
+      <div class="live-label" id="liveLabel">● BUZZER LIVE</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 14px">
+        <div style="padding:10px 6px;border-radius:12px;background:#0c1432;border:1px solid rgba(0,229,255,.28);text-align:center"><div style="font-size:11px;color:var(--cyan);font-weight:900;letter-spacing:1px">1</div><div style="font-size:12px;font-weight:900">OBSERVE</div></div>
+        <div style="padding:10px 6px;border-radius:12px;background:#0c1432;border:1px solid rgba(255,212,90,.28);text-align:center"><div style="font-size:11px;color:var(--gold);font-weight:900;letter-spacing:1px">2</div><div style="font-size:12px;font-weight:900">DISCUSS</div></div>
+        <div style="padding:10px 6px;border-radius:12px;background:#0c1432;border:1px solid rgba(255,79,216,.38);text-align:center"><div style="font-size:11px;color:var(--magenta);font-weight:900;letter-spacing:1px">3</div><div style="font-size:12px;font-weight:900">PRESS THE BUZZER</div></div>
+      </div>
+      <div class="buzzer-wrap"><button class="buzzer" id="buzzBtn" disabled aria-label="Press the buzzer">PRESS<br>THE BUZZER</button></div>
+      <div class="state" id="roundState">Observe the question, discuss with your teammate, then press the buzzer once.</div>
+      <div class="timerline"><div class="timerfill" id="timerFill"></div></div>
+      <div class="mini" style="text-align:center;margin-top:5px" id="roundTimer"></div>
+    </div>
+    <button class="btn secondary" id="reconnectBtn">RECONNECT</button>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const DEFAULT_API_BASE = location.protocol === "file:" ? "http://localhost:8787" : location.origin;
+function normalizeBase(v){return String(v||"").trim().replace(/\/+$/i,"")}
+const API_BASE = normalizeBase(new URLSearchParams(location.search).get("server") || localStorage.getItem("tz_buzzer_server") || DEFAULT_API_BASE);
+try{localStorage.setItem("tz_buzzer_server",API_BASE)}catch{}
+async function pingServer(){
+  try{
+    const r=await fetch(API_BASE+"/api/health",{cache:"no-store"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    return true;
+  }catch(e){
+    err("joinError",`Cannot connect to buzzer server at ${API_BASE}. Start the server, or open this page from the running buzzer server.`);
+    return false;
+  }
+}
+const state={roomId:"",team:null,sessionToken:"",stream:null,buzzerOpen:false,expiresAt:0,lastRoundId:"",timerId:null};
+
+function toast(s){const el=$("toast");el.textContent=s;el.classList.add("show");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("show"),2200)}
+function err(id,msg){const e=$(id);e.textContent=msg;e.classList.toggle("hidden",!msg)}
+function setConnection(on){$("connDot").classList.toggle("on",on);$("connText").textContent=on?"CONNECTED":"DISCONNECTED"}
+function saveSession(){try{localStorage.setItem("tz_buzzer_session",JSON.stringify({roomId:state.roomId,team:state.team,sessionToken:state.sessionToken}))}catch{}}
+function loadSession(){try{const x=JSON.parse(localStorage.getItem("tz_buzzer_session")||"null");if(x?.roomId&&x?.team&&x?.sessionToken){Object.assign(state,x);return true}}catch{}return false}
+async function api(path,opt={}){
+  try{
+    const r=await fetch(API_BASE+path,{...opt,headers:{"Content-Type":"application/json",...(opt.headers||{})}});
+    let j=null;try{j=await r.json()}catch{}
+    if(!r.ok)throw new Error(j?.error||`Server returned HTTP ${r.status}`);
+    return j;
+  }catch(e){
+    if(e instanceof TypeError) throw new Error(`Cannot reach buzzer server at ${API_BASE}. Make sure the server is running and the URL is correct.`);
+    throw e;
+  }
+}
+async function joinRoom(){
+  if(!(await pingServer())) return;
+  const id=$("roomId").value.trim().toUpperCase(); err("joinError",""); if(!id)return err("joinError","Enter the room ID.");
+  try{const j=await api("/api/rooms/"+encodeURIComponent(id));state.roomId=id;$("joinCard").classList.add("hidden");$("registerCard").classList.remove("hidden");$("registerBtn").dataset.room=id;toast("Room found.");}catch(e){err("joinError",e.message)}
+}
+function val(id){return $(id).value.trim()}
+async function register(){
+  err("regError","");
+  const body={teamName:val("teamName"),student1Name:val("s1n"),student1School:val("s1s"),student1Standard:val("s1std"),student2Name:val("s2n"),student2School:val("s2s"),student2Standard:val("s2std")};
+  if(Object.values(body).some(v=>!v)) return err("regError","Please complete every field.");
+  try{
+    const j=await api("/api/rooms/"+encodeURIComponent(state.roomId)+"/teams",{method:"POST",body:JSON.stringify(body)});
+    state.team=j.team;state.sessionToken=j.sessionToken;saveSession();showPlay();connect();
+  }catch(e){err("regError",e.message)}
+}
+function showPlay(){
+  $("registerCard").classList.add("hidden");$("playCard").classList.remove("hidden");
+  $("teamText").textContent=state.team.teamName;
+  $("studentText").textContent=[`${state.team.student1Name} · ${state.team.student1School} · ${state.team.student1Standard}`,`${state.team.student2Name} · ${state.team.student2School} · ${state.team.student2Standard}`].join("  |  ");
+  $("roomText").textContent="ROOM "+state.roomId;
+}
+function streamUrl(){return `${API_BASE}/stream?role=student&roomId=${encodeURIComponent(state.roomId)}&teamId=${encodeURIComponent(state.team.id)}&token=${encodeURIComponent(state.sessionToken)}`}
+function connect(){
+  try{if(state.stream)state.stream.close()}catch{}
+  setConnection(false);
+  const es=new EventSource(streamUrl());state.stream=es;
+  const events=["student:joined","room:state","buzzer:opened","buzzer:closed","buzzer:pressed","buzzer:rejected","buzzer:result","server:error"];
+  events.forEach(type=>es.addEventListener(type,e=>{let m;try{m=JSON.parse(e.data)}catch{return}handle(m)}));
+  es.onerror=()=>{setConnection(false);disableBuzz("Connection lost. Reconnect.");};
+  es.onopen=()=>setConnection(true);
+}
+function disableBuzz(text){
+  state.buzzerOpen=false; $("buzzBtn").disabled=true;$("buzzBtn").classList.remove("live");$("liveState").classList.add("hidden");$("waitingState").classList.remove("hidden");$("waitingSub").textContent=text||"Waiting for the organizer…";clearInterval(state.timerId);state.timerId=null;
+}
+function enableBuzz(m){
+  state.buzzerOpen=true;state.expiresAt=Number(m.expiresAt||Date.now());state.lastRoundId=m.roundId||"";$("waitingState").classList.add("hidden");$("liveState").classList.remove("hidden");$("buzzBtn").disabled=false;$("buzzBtn").classList.add("live");$("roundState").textContent="Tap BUZZ once when ready.";$("liveLabel").textContent="● BUZZER LIVE";clearInterval(state.timerId);
+  const tick=()=>{const rem=Math.max(0,state.expiresAt-Date.now());$("timerFill").style.width=Math.max(0,Math.min(100,rem/Math.max(1,Number(m.durationMs||25000))*100))+"%";$("roundTimer").textContent=Math.ceil(rem/1000)+" seconds remaining";if(rem<=0)disableBuzz("Time is up.");};state.timerId=setInterval(tick,100);tick();
+}
+function applyRoomState(r){
+  if(!r) return;
+  if(r.buzzerOpen && r.buzzerExpiresAt && r.currentRoundId){
+    enableBuzz({expiresAt:r.buzzerExpiresAt,roundId:r.currentRoundId,durationMs:Number(r.buzzerDurationMs||25000)});
+  } else if(!state.buzzerOpen){
+    disableBuzz(r.status==="AWAITING_EVALUATION"?"Round locked — waiting for the organizer.":"Wait for the organizer to start the question.");
+  }
+}
+async function pollRoomState(){
+  if(!state.roomId || !state.team || document.hidden) return;
+  try{const j=await api("/api/rooms/"+encodeURIComponent(state.roomId)); setConnection(true); applyRoomState(j.room);}
+  catch(e){}
+}
+function handle(m){
+  if(m.type==="student:joined"){setConnection(true);applyRoomState(m.room);return}
+  if(m.type==="buzzer:opened"){enableBuzz(m);return}
+  if(m.type==="buzzer:closed"){disableBuzz(m.reason==="time-up"?"Time is up.":"Round locked.");return}
+  if(m.type==="buzzer:pressed"){
+    state.buzzerOpen=false;$("buzzBtn").disabled=true;$("buzzBtn").classList.remove("live");
+    $("roundState").textContent=m.teamId===state.team.id?"✓ YOU BUZZED FIRST!":"🔒 ANOTHER TEAM BUZZED FIRST";
+    $("liveLabel").textContent="● ROUND LOCKED";clearInterval(state.timerId);return;
+  }
+  if(m.type==="buzzer:rejected"){toast(m.reason||"Buzzer rejected.");return}
+  if(m.type==="buzzer:result"){disableBuzz("Round complete. Waiting for the next question…");return}
+  if(m.type==="room:state"){applyRoomState(m);return}
+  if(m.type==="server:error"){toast(m.message||"Server error.");return}
+}
+$("joinBtn").onclick=joinRoom;$("registerBtn").onclick=register;$("reconnectBtn").onclick=connect;
+async function pressBuzzer(){
+  if(!state.buzzerOpen || $("buzzBtn").disabled) return;
+  $("buzzBtn").disabled=true;state.buzzerOpen=false;$("buzzBtn").classList.remove("live");$("roundState").textContent="BUZZ SENT…";
+  try{
+    const r=await fetch(`${API_BASE}/api/rooms/${encodeURIComponent(state.roomId)}/buzz`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({teamId:state.team.id,sessionToken:state.sessionToken,roundId:state.lastRoundId})});
+    let j=null;try{j=await r.json()}catch{}
+    if(!r.ok) throw new Error(j?.error||"Buzzer rejected");
+  }catch(e){ toast(e.message); await pollRoomState(); }
+}
+$("buzzBtn").onclick=pressBuzzer;
+document.addEventListener("keydown",e=>{
+  if(e.code==="Space" && state.buzzerOpen && !$("buzzBtn").disabled){e.preventDefault();pressBuzzer();}
+});
+setInterval(pollRoomState,700);
+if(loadSession()){showPlay();connect();pollRoomState()}
+else { pingServer().catch(()=>{}); }
+</script>
+</body>
+</html>

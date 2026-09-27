@@ -1,0 +1,15 @@
+{
+  "name": "techastra-jr26-buzzer-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zero-dependency real-time SSE + HTTP buzzer bridge for TechASTRA JR'26 WHATZIT?",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {}
+}
